@@ -1,0 +1,62 @@
+.auth-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.auth-container h1 {
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+}
+.auth-form input, .auth-form select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: var(--color-light-gray);
+  color: var(--color-dark-gray);
+}
+.auth-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.auth-button:hover {
+  background-color: #3d79c2;
+}
+.social-login {
+  margin: 1rem 0;
+}
+.social-login p {
+  color: var(--color-medium-gray);
+}
+.social-button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: var(--color-light-gray);
+  color: var(--color-dark-gray);
+  transition: background-color 0.3s ease;
+}
+.social-button:hover {
+  background-color: #ccc;
+}
+.auth-link-text {
+  margin-top: 1.5rem;
+}
+.auth-link-text a {
+  color: var(--primary-color);
+}

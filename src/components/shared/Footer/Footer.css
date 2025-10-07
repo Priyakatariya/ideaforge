@@ -1,0 +1,11 @@
+.footer-container {
+  background-color: var(--color-dark-gray);
+  padding: 1rem 2rem;
+  margin-top: auto;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+.footer-container p {
+  margin: 0;
+  color: var(--color-light-gray);
+}

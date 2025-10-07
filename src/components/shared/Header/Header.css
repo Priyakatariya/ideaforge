@@ -1,0 +1,59 @@
+.header-container {
+  background-color: var(--color-dark-gray);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.veritas-logo {
+  font-family: var(--font-header);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  color: var(--color-light-gray);
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.login-link {
+  color: var(--color-light-gray);
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.login-link:hover {
+  color: var(--primary-color);
+}
+.cta-button {
+  background-color: var(--accent-color);
+  color: var(--color-dark-gray);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.cta-button:hover {
+  background-color: #e0981a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

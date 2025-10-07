@@ -1,0 +1,19 @@
+:root {
+  /* Primary & Accent Colors */
+  --primary-color: #4A90E2; /* Confident Blue */
+  --accent-color: #F5A623;  /* Warm Orange for CTAs */
+
+  /* Neutral Colors */
+  --color-dark-gray: #2C3E50;
+  --color-medium-gray: #60646B;
+  --color-light-gray: #ECF0F1;
+  
+  /* Semantic Colors */
+  --color-success: #27AE60;
+  --color-warning: #E67E22;
+  --color-error: #E74C3C;
+
+  /* Typography */
+  --font-header: 'Montserrat', sans-serif;
+  --font-body: 'Lato', sans-serif;
+}
