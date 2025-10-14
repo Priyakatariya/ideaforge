@@ -1,69 +1,237 @@
+/* 🌌 Veritas About Us — NeoGlow Edition */
+
+/* --- Root Variables --- */
+:root {
+  --color-bg-gradient: linear-gradient(135deg, #0d0d25, #12142b, #1b1f35);
+  --color-accent: #7af0f7;
+  --color-accent-glow: rgba(122, 240, 247, 0.4);
+  --color-highlight: #f39cff;
+  --color-card-bg: rgba(255, 255, 255, 0.05);
+  --color-card-border: rgba(122, 240, 247, 0.25);
+  --text-color: #e8ecf2;
+  --subtitle-color: #a7b2c2;
+  --hover-glow: 0 0 20px rgba(122, 240, 247, 0.7), 0 0 40px rgba(243, 156, 255, 0.3);
+}
+
+/* --- Page Base --- */
 .about-us-page {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  background: var(--color-bg-gradient);
+  color: var(--text-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 100px;
 }
 
-.about-us-page section {
-  margin-bottom: 4rem;
+/* --- HERO / MISSION SECTION --- */
+.mission-section {
   text-align: center;
+  padding: 100px 20px 60px;
+  background: linear-gradient(160deg, rgba(15,17,35,0.9), rgba(30,35,60,0.95));
+  box-shadow: 0 0 30px rgba(122,240,247,0.2);
+  border-bottom: 1px solid var(--color-card-border);
 }
 
-.about-us-page h1 {
-  font-family: var(--font-header);
+.mission-section h1 {
   font-size: 3rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #7af0f7, #f39cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(122,240,247,0.3);
+  transition: all 0.4s ease;
 }
 
-.about-us-page h2 {
-  font-family: var(--font-header);
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+.mission-section h1:hover {
+  text-shadow: 0 0 30px rgba(122,240,247,0.7), 0 0 50px rgba(243,156,255,0.4);
 }
 
-.about-us-page p {
-  font-family: var(--font-body);
-  color: var(--color-dark-gray);
+.mission-section p {
+  max-width: 700px;
+  margin: 20px auto 0;
+  color: var(--subtitle-color);
+  font-size: 1.2rem;
   line-height: 1.6;
+  transition: all 0.4s ease;
 }
 
+.mission-section p:hover {
+  color: #3838cc;
+  text-shadow: 0 0 15px rgba(204,56,197,0.5);
+}
+
+/* --- STORY / VISION SECTION --- */
+.story-section,
+.team-section,
+.contact-section {
+  max-width: 1000px;
+  margin: 80px auto;
+  padding: 60px 30px;
+  background: var(--color-card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--color-card-border);
+  box-shadow: 0 0 25px rgba(122,240,247,0.1);
+  transition: all 0.4s ease;
+}
+
+.story-section:hover,
+.team-section:hover,
+.contact-section:hover {
+  box-shadow: var(--hover-glow);
+  transform: scale(1.02);
+}
+
+.story-section h2,
+.team-section h2,
+.contact-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #f39cff, #7af0f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(243,156,255,0.2);
+  transition: all 0.4s ease;
+}
+
+.story-section h2:hover,
+.team-section h2:hover,
+.contact-section h2:hover {
+  text-shadow: 0 0 25px rgba(122,240,247,0.7), 0 0 40px rgba(243,156,255,0.4);
+}
+
+.story-section p,
+.team-section p,
+.contact-section p {
+  font-size: 1.1rem;
+  color: var(--subtitle-color);
+  line-height: 1.6;
+  transition: all 0.4s ease;
+}
+
+.story-section p:hover,
+.team-section p:hover,
+.contact-section p:hover {
+  color: #8038cc;
+  text-shadow: 0 0 15px rgba(204,56,197,0.4);
+}
+
+/* --- TEAM MEMBER CARDS --- */
 .team-member {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: rgba(255,255,255,0.05);
+  padding: 40px 25px;
+  border-radius: 20px;
+  border: 1px solid var(--color-card-border);
+  box-shadow: 0 0 20px rgba(122,240,247,0.15);
   text-align: center;
+  margin: 50px auto;
+  max-width: 350px;
+  transition: all 0.4s ease;
 }
 
-.founder-photo-placeholder {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background-color: var(--color-light-gray);
-  margin-bottom: 1rem;
-  border: 4px solid var(--primary-color);
-  /* Optional: For a visual placeholder */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-medium-gray);
-  font-size: 0.8rem;
-  text-align: center;
-  padding: 0.5rem;
+.team-member:hover {
+  box-shadow: var(--hover-glow);
+  transform: scale(1.04);
 }
 
-.role {
+.team-member h3 {
+  font-size: 1.8rem;
+  color: #f39cff;
+  margin-bottom: 10px;
+}
+
+.team-member p {
+  color: var(--subtitle-color);
   font-size: 1rem;
-  color: var(--color-medium-gray);
-  margin: 0.5rem 0 1rem;
 }
 
-.contact-link {
-  color: var(--primary-color);
-  font-weight: bold;
+/* --- Founder Photo --- */
+.founder-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 4px solid #f736c5;
+  box-shadow: 0 0 20px #f736c5;
+  transition: all 0.4s ease;
 }
 
-.contact-link:hover {
-  color: #3d79c2;
+.team-member:hover .founder-photo {
+  border-color: #cc38c9;
+  box-shadow: 0 0 25px #cc38c9;
+}
+
+/* --- FINAL CTA --- */
+.final-cta {
+  text-align: center;
+  margin: 100px auto 50px;
+  padding: 80px 30px;
+  max-width: 900px;
+  background: radial-gradient(circle at top left, rgba(122,240,247,0.15), rgba(20,25,45,0.95));
+  border: 1px solid rgba(122,240,247,0.3);
+  border-radius: 25px;
+  box-shadow: 0 0 30px rgba(122,240,247,0.15);
+  transition: all 0.4s ease;
+}
+
+.final-cta:hover {
+  box-shadow: 0 0 50px rgba(122,240,247,0.4);
+  transform: scale(1.02);
+}
+
+.final-cta h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #7af0f7, #5c6fbb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.final-cta p {
+  font-size: 1.1rem;
+  color: var(--subtitle-color);
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(90deg, #6334d3, #7af0f7);
+  color: #0c0c15;
+  font-weight: 600;
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(122,240,247,0.5);
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(122,240,247,0.7);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+  .mission-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .story-section h2,
+  .team-section h2,
+  .contact-section h2 {
+    font-size: 2rem;
+  }
+
+  .team-member {
+    max-width: 90%;
+  }
+
+  .feature-item,
+  .team-section,
+  .story-section,
+  .contact-section {
+    padding: 50px 20px;
+  }
 }

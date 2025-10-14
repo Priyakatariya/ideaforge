@@ -19,7 +19,7 @@ const Features: React.FC = () => {
         <div className="visual">
           {/* Image for Holistic Data Integration */}
           {/* Assuming your image is at 'src/assets/holistic_integration_chaos_unity.png' relative to your project root */}
-          <img src="/src/assets/holistic_integration_chaos_unity.png" alt="Illustration of data chaos versus a unified, integrated data view" />
+          <img src="src/assets/holistic_integration_chaos_unity.png " alt="Illustration of data chaos versus a unified, integrated data view" />
         </div>
       </section>
 
@@ -32,7 +32,7 @@ const Features: React.FC = () => {
         <div className="visual">
           {/* Image for Predictive Simulation */}
           {/* Assuming your image is at 'src/assets/predictive_simulation_future.png' relative to your project root */}
-          <img src="/src/assets/predictive_simulation_future.png" alt="Predictive Simulation showing future outcomes based on personal data" />
+          <img src="src/assets/predictive_simulation_future.png" alt="Predictive Simulation showing future outcomes based on personal data" />
         </div>
       </section>
 

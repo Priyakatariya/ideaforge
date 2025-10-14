@@ -1,59 +1,155 @@
+/* 
+  Note: Variables like --text-gradient-start, --color-fixed-bg, etc.,
+  must be defined globally (e.g., in :root or a shared theme file).
+  This CSS assumes they are already available from the landing page's global context.
+*/
+
+/* ------------------ HEADER CONTAINER ------------------ */
 .header-container {
-  background-color: var(--color-dark-gray);
+  background-color: rgba(10, 15, 30, 0.95); /* Slight transparency for glass effect */
+  backdrop-filter: blur(8px); /* Frosted glass blur */
   padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(54, 197, 247, 0.1); /* Subtle blue border */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Floating shadow */
 }
+
+/* ------------------ NAVBAR ------------------ */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
 }
+
+/* ------------------ LOGO ------------------ */
 .veritas-logo {
-  font-family: var(--font-header);
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--primary-color);
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  text-decoration: none;
+  color: transparent;
+  background: linear-gradient(45deg, var(--text-gradient-start), var(--text-gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 10px rgba(54, 197, 247, 0.6);
+  transition: transform 0.3s ease;
 }
+
+.veritas-logo:hover {
+  transform: scale(1.05);
+}
+
+/* ------------------ NAV LINKS ------------------ */
 .nav-links {
   list-style: none;
   display: flex;
   flex-grow: 1;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
   margin: 0;
   padding: 0;
 }
+
 .nav-links a {
   color: var(--color-light-gray);
-  font-size: 1rem;
+  font-size: 1.1rem;
+  text-decoration: none;
+  position: relative;
   transition: color 0.3s ease;
 }
-.nav-links a:hover {
-  color: var(--primary-color);
+
+/* Underline / Glow Hover Effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--text-gradient-end);
+  box-shadow: 0 0 10px var(--text-gradient-end);
+  transition: width 0.3s ease;
 }
+
+.nav-links a:hover {
+  color: white;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ------------------ AUTH ACTIONS ------------------ */
 .auth-actions {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
+
+/* Login Button */
 .login-link {
+  background: none;
+  border: none;
+  cursor: pointer;
   color: var(--color-light-gray);
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
+
 .login-link:hover {
-  color: var(--primary-color);
+  color: var(--text-gradient-end);
+  text-shadow: 0 0 8px var(--text-gradient-end);
 }
+
+/* CTA Button (Matches Landing Page Style) */
 .cta-button {
-  background-color: var(--accent-color);
-  color: var(--color-dark-gray);
-  padding: 0.5rem 1.5rem;
-  border-radius: 25px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  background: linear-gradient(45deg, var(--text-gradient-start), var(--text-gradient-end));
+  color: white;
+  padding: 0.7rem 1.8rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(120, 56, 204, 0.4);
+  border: none;
 }
+
 .cta-button:hover {
-  background-color: #e0981a;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(54, 197, 247, 0.6);
+}
+
+/* Log Out Button */
+.logout-button {
+  padding: 0.7rem 1.8rem;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #333, #111);
+  color: var(--color-light-gray);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  color: var(--text-gradient-end);
+  border-color: var(--text-gradient-end);
+  text-shadow: 0 0 5px var(--text-gradient-end);
+}
+
+/* ------------------ RESPONSIVE ------------------ */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none; /* Hidden for mobile (use hamburger if needed) */
+  }
+
+  .navbar {
+    justify-content: space-between;
+  }
 }

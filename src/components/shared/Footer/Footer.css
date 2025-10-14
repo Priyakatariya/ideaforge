@@ -1,11 +1,20 @@
 .footer-container {
-  background-color: var(--color-dark-gray);
-  padding: 1rem 2rem;
+  background-color: var(--color-scrolling-bg); /* Use the scrolling background color */
+  padding: 2rem 2rem; /* Vertical and horizontal padding */
   margin-top: auto;
   text-align: center;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(120, 56, 204, 0.1); /* Subtle purple top border */
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
 }
+
 .footer-container p {
   margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-container p:hover {
   color: var(--color-light-gray);
+  text-shadow: 0 0 5px rgba(54, 197, 247, 0.3);
 }

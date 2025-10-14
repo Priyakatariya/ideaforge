@@ -1,56 +1,260 @@
-.landing-page {
-  padding: 0;
-  margin: 0 auto;
-  max-width: 1200px;
+/* ---------------------------------------------------------------------- */
+/* 1. VARIABLES & GLOBAL STYLES (Variables scoped to body) */
+/* ---------------------------------------------------------------------- */
+
+body {
+    /* Variables defined here instead of :root for page-specific scope */
+    --primary-color: #007bff;
+    --color-fixed-bg: #0b0f20;
+    /* REVISED: Slightly more transparent background for a 'floating' effect on sections */
+    --color-scrolling-bg: rgba(10, 15, 30, 0.9); 
+    --color-card-bg: rgba(89, 166, 184, 0.05); /* Very light background for depth */
+    --color-light-gray: #eaf0f6; /* Slightly brighter text color for better contrast */
+    --text-gradient-start: #7838cc; /* Vibrant purple */
+    --text-gradient-end: #36c5f7; /* Vibrant blue/cyan */
+    --card-border-color: #36c5f7;
+
+    /* Base Styles */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    
+    background-color: var(--color-fixed-bg);
+    color: var(--color-light-gray);
 }
+
+.landing-page-wrapper {
+    position: relative;
+    z-index: 10;
+}
+
+/* Fixed Background Image with Subtle Animation */
+.fixed-space-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('YOUR_SPACE_IMAGE_URL_HERE');
+    background-size: cover;
+    background-position: center;
+    /* REVISED: Reduced brightness filter slightly for better visual on dark space images */
+    filter: brightness(0.5); 
+    z-index: -2;
+    animation: subtleZoom 30s infinite alternate ease-in-out;
+}
+
+@keyframes subtleZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+/* --- SECTION STYLING --- */
 section {
-  padding: 6rem 2rem;
-  text-align: center;
+    padding: 8rem 2rem; 
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-scrolling-bg);
+    color: var(--color-light-gray);
+    /* Floating effect with inner shadow */
+    box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.3), 
+                inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 0;
 }
+
+section:first-of-type {
+    box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.3); /* Remove top shadow on hero */
+}
+
+h2 {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+    color: var(--color-light-gray);
+    text-shadow: 0 0 10px rgba(54, 197, 247, 0.4);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 2. HERO SECTION (Focus on Transparency and Contrast) */
+/* ---------------------------------------------------------------------- */
 .hero-section {
-  padding: 8rem 2rem;
-  background-color: var(--color-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0rem 1rem;
+    min-height: 100vh;
+    /* MUST be transparent to see the fixed background */
+    background-color: transparent; 
+    text-align: center;
+    /* REVISED: Ensure no internal shadow to maximize fixed background view */
+    box-shadow: none; 
 }
-.hero-section h1 {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  color: var(--color-light-gray);
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    color: var(--color-light-gray);
+    padding: 2.5rem 2rem; /* Slightly more padding */
+    border-radius: 20px;
+    
+    /* REVISED: Make the container more subtle - less blur, more transparent background */
+    backdrop-filter: blur(5px); /* Increased blur slightly for better separation */
+    background-color: rgba(10, 15, 30, 0.5); /* Semi-transparent dark overlay */
+    border: 1px solid rgba(54, 197, 247, 0.2); /* Subtle blue border */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Clearer box shadow */
+
+    transition: all 0.5s ease-in-out; 
 }
-.sub-headline {
-  font-size: 1.5rem;
-  color: var(--color-medium-gray);
-  margin-bottom: 2rem;
+
+.hero-content:hover {
+    transform: scale(1.01);
+    /* Subtle hover glow */
+    box-shadow: 0 0 40px rgba(54, 197, 247, 0.4); 
 }
+
+.hero-content h1 {
+    font-size: 5.5rem; 
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    /* REVISED: Use light-gray var for base color, ensuring high contrast */
+    color: var(--color-light-gray); 
+    text-shadow:
+        0 0 15px rgba(120, 56, 204, 0.8), 
+        0 0 30px rgba(54, 197, 247, 0.6); 
+}
+
+.highlight-text {
+    color: transparent;
+    background: linear-gradient(45deg, var(--text-gradient-start), var(--text-gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: none;
+}
+
+.hero-content .sub-headline {
+    font-size: 1.8rem;
+    /* REVISED: Use light-gray var for consistency */
+    color: var(--color-light-gray); 
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+/* Entrance Animations */
+@keyframes fadeInSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-text, .animated-cta { 
+    opacity: 0; 
+    animation: fadeInSlideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
+}
+.hero-content h1.animated-text { animation-delay: 0.2s; }
+.hero-content .sub-headline.animated-text { animation-delay: 0.6s; }
+.cta-button.animated-cta { animation-delay: 1s; }
+
+/* CTA BUTTON */
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(45deg, var(--text-gradient-start), var(--text-gradient-end));
+    color: white;
+    padding: 1.2rem 3rem; 
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.3rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 5px 20px rgba(120, 56, 204, 0.6); 
+    border: 2px solid transparent;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(54, 197, 247, 0.8); 
+    border-color: white;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 3. CARDS & 3D TILT EFFECT */
+/* ---------------------------------------------------------------------- */
 .steps-container, .features-container, .testimonials-container {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 3rem; 
+    flex-wrap: wrap;
+    margin-top: 4rem;
 }
+
 .step-card, .feature-card, .testimonial-card {
-  background-color: #acc9e3; /* White background for contrast */
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 350px;
+    background-color: var(--color-card-bg);
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(54, 197, 247, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+    max-width: 300px; 
+    min-height: 280px;
+    color: var(--color-light-gray);
+    text-align: center;
+    transition: all 0.4s ease-out; 
+
+    /* Enable 3D transform */
+    transform-style: preserve-3d; 
+    perspective: 1000px;
 }
+
+/* The TILT Hover Effect for ALL cards */
+.step-card:hover, .feature-card:hover, .testimonial-card:hover {
+    transform: translateY(-10px) rotateX(1deg) rotateY(-1deg) scale(1.03); 
+    box-shadow:
+        0 15px 40px rgba(54, 197, 247, 0.8),
+        0 0 60px rgba(120, 56, 204, 0.5); 
+    border-color: var(--card-border-color);
+}
+
 .icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color);
+    font-size: 5rem; 
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px var(--text-gradient-end)); 
+    transition: filter 0.3s ease;
 }
-.problem-section {
-  background-color: var(--color-light-gray);
+
+.step-card:hover .icon, .feature-card:hover .icon {
+    filter: drop-shadow(0 0 15px var(--text-gradient-start)); 
 }
-.problem-section h2 {
-  color: var(--color-dark-gray);
+
+.step-card h3, .feature-card h3, .testimonial-card span {
+    color: var(--text-gradient-end); 
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    transition: color 0.3s ease;
 }
-.social-proof-section {
-  background-color: #175978;
+
+.step-card:hover h3, .feature-card:hover h3, .testimonial-card:hover span {
+    color: var(--text-gradient-start); 
 }
-.final-cta-section {
-  background-color: var(--color-light-gray);
+
+.step-card p, .feature-card p, .testimonial-card p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
 }
-.final-cta-section h2 {
-  color: var(--primary-color);
+
+/* ---------------------------------------------------------------------- */
+/* 4. RESPONSIVE */
+/* ---------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    .hero-content h1 { font-size: 4.5rem; }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 3rem; }
+    .hero-content .sub-headline { font-size: 1.2rem; }
+    h2 { font-size: 2.5rem; }
+    section { padding: 4rem 1rem; }
+    .cta-button { padding: 1rem 2rem; font-size: 1.1rem; }
+    .step-card, .feature-card, .testimonial-card { max-width: 80%; min-height: auto; }
 }

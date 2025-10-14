@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/shared/Header/Header';
 import Footer from './components/shared/Footer/Footer';
 import LandingPage from './components/LandingPage/LandingPage';
@@ -13,23 +13,31 @@ import OnboardingForm from './components/Auth/OnboardingForm';
 import './App.css';
 
 const App: React.FC = () => {
-  // Use a state to track the login status. Initial state is false.
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  // This function sets the login state to true.
-  const handleLogin = () => {
-    setIsLoggedIn(true);
+  // On mount, check if token exists in localStorage
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) setIsLoggedIn(true);
+  }, []);
+
+  const handleLogin = () => setIsLoggedIn(true);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
   };
 
-  // This function sets the login state to false.
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  // Protected route component
+  const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+    return isLoggedIn ? children : <Navigate to="/login" replace />;
   };
 
   return (
     <Router>
       <div className="App">
-        {/* The Header now receives the login status and logout function */}
         <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <main className="content">
           <Routes>
@@ -37,19 +45,23 @@ const App: React.FC = () => {
             <Route path="/features" element={<Features />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/about-us" element={<AboutUs />} />
-            
-            {/* The Login form now receives the onLogin function */}
+
+            {/* Auth routes */}
             <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-            
-            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/signup" element={<SignUpForm onLogin={handleLogin} />} />
             <Route path="/onboarding" element={<OnboardingForm />} />
 
-            {/* A protected route. Only accessible if the user is logged in. */}
-            <Route path="/dashboard" element={
-              isLoggedIn ? <UserDashboard /> : <LoginForm onLogin={handleLogin} />
-            } />
+            {/* Protected dashboard route */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <UserDashboard />
+                </ProtectedRoute>
+              }
+            />
 
-            {/* Catch-all route for unknown paths */}
+            {/* Catch-all */}
             <Route path="*" element={<LandingPage />} />
           </Routes>
         </main>

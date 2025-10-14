@@ -1,54 +1,72 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './AuthForm.css';
+// LoginForm.tsx
 
-// The component now accepts a function prop
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import API from "../../api";
+import "./AuthForm.css";
+
 interface LoginFormProps {
   onLogin: () => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call for login
-    console.log('Logging in with:', email, password);
-    
-    // On successful login...
-    onLogin(); // Call the prop function to update the app's state
-    navigate('/dashboard'); // Redirect to the dashboard
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await API.post("/auth/login", { email, password });
+
+      // Save token and user info
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      console.log("Login successful:", res.data.user);
+
+      onLogin();
+      navigate("/dashboard");
+    } catch (err: any) {
+      console.error("Login failed:", err);
+      setError(err.response?.data?.error || "Login failed. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-container">
       <h1>Log In to Your Account</h1>
       <form onSubmit={handleLogin} className="auth-form">
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          required 
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          required 
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <button type="submit" className="auth-button">Log In</button>
+        {error && <p className="error">{error}</p>}
+        <button type="submit" className="auth-button" disabled={loading}>
+          {loading ? "Logging In..." : "Log In"}
+        </button>
       </form>
-      <div className="social-login">
-        <p>or</p>
-        <button className="social-button">Log In with Google</button>
-        <button className="social-button">Log In with Apple</button>
-      </div>
+
       <p className="auth-link-text">
-        Don't have an account? <a href="/signup">Sign Up</a>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
     </div>
   );

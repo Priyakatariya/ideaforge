@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-// Now accepts two props: isLoggedIn status and the logout function
+// Define props interface
 interface HeaderProps {
   isLoggedIn: boolean;
   onLogout: () => void;
@@ -15,16 +15,23 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
         <Link to="/" className="veritas-logo">
           Veritas
         </Link>
+
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/features">Features</Link></li>
           <li><Link to="/pricing">Pricing</Link></li>
           <li><Link to="/about-us">About Us</Link></li>
-          {isLoggedIn && <li><Link to="/dashboard">Dashboard</Link></li>}
+          {isLoggedIn && (
+            <li><Link to="/dashboard">Dashboard</Link></li>
+          )}
         </ul>
+
         <div className="auth-actions">
           {isLoggedIn ? (
-            <button onClick={onLogout} className="login-link">
+            <button
+              onClick={onLogout}
+              className="login-link logout-button"
+            >
               Log Out
             </button>
           ) : (
