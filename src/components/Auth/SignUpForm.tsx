@@ -30,11 +30,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onLogin }) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
         console.log("✅ Signup successful:", res.data.user);
 
-        // ✅ Call onLogin to update App.tsx state
+        // Call onLogin to update App.tsx state
         if (onLogin) onLogin();
 
-        // Redirect to dashboard
-        navigate("/dashboard");
+        // --- CHANGE HERE ---
+        // Redirect to the onboarding form instead of the dashboard
+        navigate("/onboarding");
       } else {
         setError("Unexpected signup response.");
       }

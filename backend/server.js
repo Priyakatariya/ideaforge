@@ -3,46 +3,43 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const cors = require("cors"); // Import CORS middleware
-const authRoutes = require("./routes/authRoutes"); // Import your auth router
+const cors = require("cors");
+const authRoutes = require("./routes/authRoutes");
+// 1. You correctly import the onboarding routes here
+const onboardingRoutes = require("./routes/onboarding"); 
 
 // Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 
-// --- Database Connection ---
+// --- Database Connection (MongoDB) ---
 const connectDB = async () => {
   try {
-    // Connect to MongoDB using the URI from the .env file
+    console.log("⏳ Connecting to MongoDB...");
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB Connected Successfully!");
   } catch (err) {
     console.error("❌ MongoDB Connection Failed:", err.message);
-    // Exit process with failure code
-    process.exit(1);
+    console.log("⚠️ Server will continue to run, but database operations will fail.");
+    // Removed process.exit(1) to allow the server to stay up and provide feedback
   }
 };
 
 connectDB();
 
 // --- Middleware ---
-// 1. CORS: Allows your React frontend (e.g., on port 3000) to access the backend (on port 5000)
-// For a production environment, you should restrict origins instead of using '*'
 app.use(cors());
-
-// 2. Body Parser: Allows the app to read JSON data sent in the request body (req.body)
 app.use(express.json());
 
 // --- Routes ---
-// Mount the authentication router under the '/auth' base path.
-// This means all routes in authRoutes will now be prefixed with /auth
-// e.g., POST /auth/register and POST /auth/login
-app.use("/auth", authRoutes);
+// Use /api prefix to match .env configuration
+app.use("/api/auth", authRoutes);
+app.use('/api/onboarding', onboardingRoutes);
 
-// Simple test route (Optional)
+// Simple test route
 app.get('/', (req, res) => {
-    res.send('Server is running. Navigate to /auth/register to sign up.');
+    res.send('Server is running. API routes are under /api (e.g., /api/auth, /api/onboarding).');
 });
 
 
