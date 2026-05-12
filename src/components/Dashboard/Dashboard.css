@@ -1,69 +1,211 @@
+:root {
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --bg-dark: #0f172a;
+  --card-bg: rgba(30, 41, 59, 0.7);
+}
+
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: #f1f5f9;
 }
 
 .main-content {
   flex-grow: 1;
-  padding: 2rem;
-  margin-left: 250px; /* Space for the sidebar */
+  padding: 3rem;
+  margin-left: 250px;
+  max-width: 1200px;
 }
 
 .dashboard-header {
-  margin-bottom: 2rem;
-}
-
-.dashboard-header h1 {
-  color: var(--primary-color);
-  font-size: 2.5rem;
-}
-
-.dashboard-header p {
-  color: #a0a0a0;
-  font-size: 1.1rem;
-}
-
-.metrics-section, .predictive-insights-section, .daily-tasks-section {
   margin-bottom: 3rem;
 }
 
-.metrics-section {
+.dashboard-header h1 {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  color: #94a3b8;
+  font-size: 1.2rem;
+}
+
+.gamification-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.quest-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  padding: 2rem;
+  border-radius: 1.5rem;
+}
+
+.quest-header {
   display: flex;
-  justify-content: space-between;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.quest-icon {
+  color: #a855f7;
+}
+
+.progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  height: 8px;
+  border-radius: 4px;
+  margin: 1.5rem 0 0.5rem 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--accent-gradient);
+  height: 100%;
+  border-radius: 4px;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.streak-card {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.streak-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #f59e0b;
+  margin: 0.5rem 0;
+}
+
+.streak-sub {
+  color: #d97706;
+  font-size: 0.9rem;
+}
+
+.metrics-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 .metric-card {
-  background-color: var(--secondary-color);
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  flex: 1;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  border-color: #6366f1;
 }
 
 .metric-card h3 {
-  color: var(--primary-color);
-  margin-top: 0;
+  color: #94a3b8;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.metric-label {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.predictive-insights-section h2, .goals-section h2, .journal-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .insight-card {
-  background-color: #3b3f46;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
   padding: 2rem;
-  border-radius: 12px;
-  font-size: 1.25rem;
-  line-height: 1.6;
+  border-radius: 1.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.tasks-list {
-  list-style: none;
-  padding: 0;
+.insight-card.highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-gradient);
 }
 
-.tasks-list li {
-  background-color: var(--secondary-color);
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
+.insight-card h3 {
+  color: #818cf8;
   margin-bottom: 1rem;
-  font-size: 1.1rem;
+}
+
+.goals-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.goal-tag {
+  background: #334155;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.journal-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border-left: 4px solid #94a3b8;
+}
+
+.journal-card p {
+  font-style: italic;
+  color: #cbd5e1;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #6366f1;
 }

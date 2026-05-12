@@ -7,6 +7,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 // 1. You correctly import the onboarding routes here
 const onboardingRoutes = require("./routes/onboarding"); 
+const aiRoutes = require("./routes/aiRoutes");
+const simulationRoutes = require("./routes/simulationRoutes");
 
 // Load environment variables from .env file
 dotenv.config();
@@ -36,6 +38,8 @@ app.use(express.json());
 // Use /api prefix to match .env configuration
 app.use("/api/auth", authRoutes);
 app.use('/api/onboarding', onboardingRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/simulation', simulationRoutes);
 
 // Simple test route
 app.get('/', (req, res) => {

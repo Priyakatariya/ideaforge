@@ -1,50 +1,42 @@
-const { validationResult } = require('express-validator');
-const OnboardingProfile = require('../models/OnboardingProfile');
+const OnboardingData = require('../models/OnboardingData');
 
-/**
- * Controller to save or update a user's onboarding data.
- * It finds a profile by the user's ID and updates it, or creates a new one if it doesn't exist.
- */
+// Save or update user onboarding data
 const saveOnboardingData = async (req, res) => {
-  // 1. Validate the incoming request data.
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // If there are validation errors, return a 400 Bad Request response.
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  // 2. Extract the user ID from the request (attached by authMiddleware).
-  const userId = req.user.id;
-  const formData = req.body;
-
   try {
-    // 3. Find the user's existing profile or create a new one.
-    // The `findOneAndUpdate` method is perfect for this "upsert" (update or insert) operation.
-    const updatedProfile = await OnboardingProfile.findOneAndUpdate(
-      { userId: userId }, // The filter to find the document.
-      { ...formData, userId: userId }, // The data to update or insert.
-      {
-        new: true,    // Return the modified document rather than the original.
-        upsert: true, // Create a new document if one doesn't match the filter.
-        runValidators: true // Ensure the update operation respects the schema's validation rules.
-      }
+    const userId = req.user.id;
+    const data = { ...req.body, userId };
+
+    const updatedData = await OnboardingData.findOneAndUpdate(
+      { userId },
+      data,
+      { new: true, upsert: true, setDefaultsOnInsert: true }
     );
 
-    // 4. Send a success response.
-    console.log(`Successfully saved/updated onboarding data for user: ${userId}`);
     res.status(201).json({
-      message: 'Onboarding data saved successfully!',
-      profile: updatedProfile,
+      message: '✅ Onboarding data saved successfully!',
+      data: updatedData,
     });
   } catch (error) {
-    // 5. Handle any potential database errors.
-    console.error('Error saving data to MongoDB:', error);
-    res.status(500).json({ message: 'Failed to save onboarding data due to a server error.' });
+    console.error('❌ Error saving onboarding data:', error);
+    res.status(500).json({ message: 'Server error while saving data.' });
   }
 };
 
-// FIX: Export the function as a property of an object.
-module.exports = {
-    saveOnboardingData,
+// Get user onboarding data
+const getOnboardingData = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const data = await OnboardingData.findOne({ userId });
+
+    if (!data) {
+      return res.status(404).json({ message: 'Onboarding data not found.' });
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    console.error('❌ Error fetching onboarding data:', error);
+    res.status(500).json({ message: 'Server error while fetching data.' });
+  }
 };
 
+module.exports = { saveOnboardingData, getOnboardingData };
